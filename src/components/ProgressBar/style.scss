@@ -1,0 +1,11 @@
+.progress__wrap {
+  width: 100%;
+  height: 10px;
+  border-bottom: 1px solid #000;
+  border-top: 1px solid #000;
+}
+.progress__thumb {  
+  height: 100%;
+  background: blue;
+  transition: width 1s ease;
+}
