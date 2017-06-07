@@ -1,0 +1,13 @@
+.error__popup {
+	font-size: 30px;
+	color: red;
+	background: #ccc;
+	padding: 20px;
+	border-radius: 5px;
+	border: 1px solid red;
+	width: 150px;
+	height: 150px;
+	position: absolute;
+	left: calc(50% - 75px);
+	top: calc(50% - 110px);
+}

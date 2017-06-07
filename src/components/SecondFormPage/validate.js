@@ -18,6 +18,8 @@ const validate = (values) => {
     errors.year = 'Must be a number';
   } else if (!values.year) {
     errors.year = 'Reqired';
+  } else if (+values.year > 2017 || +values.year < 1917) {
+    errors.year = 'Not correct year';
   }
   if (!values.gender) {
     errors.gender = 'Required';

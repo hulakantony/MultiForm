@@ -10,15 +10,9 @@ const validate = (values) => {
   } else if (values.password.length < 6) {
     errors.password = 'Password should be minimum 6 characters long';
   }
-  if (values.confirmPassword !== values.password) {
-    errors.confirmPassword = 'Password confirmation should match the password';
+  if (values.confirm !== values.password) {
+    errors.confirm = 'Password confirmation should match the password';
   }
-  // if (!values.sex) {
-  //   errors.sex = 'Required';
-  // }
-  // if (!values.favoriteColor) {
-  //   errors.favoriteColor = 'Required';
-  // }
   return errors;
 };
 

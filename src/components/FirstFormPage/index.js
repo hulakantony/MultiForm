@@ -28,7 +28,7 @@ const FirstFormPage = (props) => {
       <div>
         <label htmlFor="confirm">Confirm password</label>
         <Field
-          id="confirmPassword"
+          id="confirm"
           name="confirm"
           type="password"
           component={InputField}

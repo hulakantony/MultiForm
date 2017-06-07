@@ -1,6 +1,6 @@
 import React from 'react';
 
-const renderField = ({ input, type, label, id, meta: { touched, error } }) => {
+const InputField = ({ input, type, label, id, meta: { touched, error } }) => {
   const errorNotification = touched && error;
   const placeholder = (label ? label : '');
   return (
@@ -10,4 +10,4 @@ const renderField = ({ input, type, label, id, meta: { touched, error } }) => {
     </div>
   );
 };
-export default renderField;
+export default InputField;
