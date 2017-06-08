@@ -22,22 +22,33 @@ export default class MultiForm extends Component {
   prevPage = () => {
     this.setState({ page: this.state.page - 1 });
   }
+  isValidDate = (year, month, day) => {
+    const d = new Date(year, month, day);
+    if (d.getFullYear() === year && d.getMonth() === month && d.getDate() === day) {
+      return true;
+    }
+    return false;
+  };
   handleSubmit = (data) => {
-    console.log(JSON.stringify(data));
-    const personBirth = new Date(+data.year, data.month - 1, +data.date);
+    const { year, month, date } = data;
+    const personBirth = new Date(+year, month - 1, +date);
     const ageDifs = Date.now() - personBirth.getTime();
     const ageDate = new Date(ageDifs);
-    if (Math.abs(ageDate.getUTCFullYear() - 1970) >= 18) {
-      this.nextPage();
-    } else {
+    if (!this.isValidDate(+year, month - 1, +date)) {
+      throw new SubmissionError({
+        _error: 'Not correct date!'
+      });
+    } else if (Math.abs(ageDate.getUTCFullYear() - 1970) < 18) {
       throw new SubmissionError({
         _error: 'You are too young!'
       });
+    } else {
+      this.nextPage();
+      window.localStorage.removeItem('formState');
     }
   }
   renderFormPage = () => {
     const { page } = this.state;
-    // const { onSubmit } = this.props;
     switch (page) {
       case 1:
         return <FirstFormPage

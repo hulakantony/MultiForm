@@ -22,7 +22,8 @@
     "class-methods-use-this": ["off"],
     "no-continue": ["off"],
     "no-undef": ["off"],
-    "arrow-body-style": ["error", "always"],
+    "arrow-body-style": ["off"],
+    "arrow-parens": ["off"],
     "no-unneeded-ternary": ["off"],
   },
   "globals": {

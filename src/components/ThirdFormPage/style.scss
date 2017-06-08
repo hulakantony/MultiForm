@@ -2,6 +2,18 @@
 	width: 200px;
 	height: 200px;
 	margin: 0 auto;
-	background-size: cover
-	background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Blue_check_PD.svg/1024px-Blue_check_PD.svg.png') no-repeat 0 0;
+	background: url(./images/check_image.png) no-repeat 0 0;
+	background-size: contain;
+}
+.go_to_dashboard_btn {
+	display: inline-block;
+	width: 150px;
+	height: 40px;
+	color: #003F7F;
+	margin: 0 auto;
+	text-decoration: none;
+	font-weight: bold;
+	border: 2px solid #003F7F;
+	padding: 10px 0;
+	border-radius: 7px;
 }

@@ -1,14 +1,15 @@
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import rootReducer from '../reducers/';
-// import createSagaMiddleware from 'redux-saga';
+import loadState from './helpers/localStorage';
+import storageMiddleware from './helpers/storageMiddleware';
 
-// const logger = createLogger();
-// const sagaMiddleware = createSagaMiddleware();
+const persistedState = loadState();
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(logger)
+  persistedState,
+  applyMiddleware(logger, storageMiddleware)
 );
 
 export default store;
