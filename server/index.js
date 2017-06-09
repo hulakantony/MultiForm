@@ -1,16 +1,26 @@
 require('import-export');
-require('babel-core/register')({ presets: ['es2015', 'react'] });
+require('babel-core/register')({
+  presets: ['es2015', 'react', 'stage-0'],
+  plugins: [
+   [
+     'babel-plugin-transform-require-ignore',
+     {
+       extensions: ['.scss', '.css']
+     }
+   ]
+ ]
+});
 
 const Koa = require('koa');
 const path = require('path');
 const fs = require('fs');
 const react = require('react');
 const reactDomServer = require('react-dom/server');
-const reactRouter = require('react-router');
+const { matchPath, RouterContext } = require('react-router-dom');
 const serve = require('koa-static');
- 
+const Router = require('koa-router');
+
 const { renderToString } = reactDomServer;
-const { match, RouterContext } = reactRouter;
 
 const staticFiles = [
   '/static/*',
@@ -20,17 +30,18 @@ const staticFiles = [
 ];
 
 const app = new Koa();
+const router = new Router();
 const routes = require('../src/routes');
 app.use(serve('../build'));
 
 staticFiles.forEach(file => {
-  app.get(file, (req, res) => {
+  router.get(file, (req, res) => {
     const filePath = path.join( __dirname, '../build', req.url )
     res.sendFile( filePath )
   })
 });
 
-app.get('*', (req, res) => {
+router.get('*', (req, res) => {
 
   const error = () => res.status(404).send('404')
   const htmlFilePath = path.join( __dirname, '../build', 'index.html' )
@@ -40,7 +51,7 @@ app.get('*', (req, res) => {
       error()
     }
     else {
-      match({ routes, location: req.url }, (err, redirect, ssrData) => {
+      matchPath({ routes, location: req.url }, (err, redirect, ssrData) => {
         if(err) {
           error()
         }
@@ -59,10 +70,8 @@ app.get('*', (req, res) => {
     }
   })
 })
-
-// app.use(ctx => {
-//   ctx.body = 'Hello World';
-// });
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 app.listen(8080);
 console.log(`Server start on localhost:8080`);
